@@ -49,13 +49,35 @@ function mixNum(){
 var nameInput = document.getElementById("nameInput");
 var inventoryBox = document.getElementById("inventoryBox");
 
+var colors = []
+
+//updates var colors (list of inventory arrays)
+function inventoryValues(){
+  for (var key in inventory){
+    colors.push(inventory[key]);
+  };
+};
+
+//checks if currentColor (color shown) in colors list
+function valueInInventory() {
+  inventoryValues();
+  var i = colors.length;
+  while (i--) {
+    if (colors[i] === currentColor) {
+      return true;
+    };
+  };
+  return false;
+};
+
 function saveName(){
-  dev.innerHTML = "Dev: currentColor variable = " + currentColor;
   if (currentColor === undefined) {
     messageBox.innerHTML = "You need to mix a color first";
   } else if (nameInput.value in inventory) {
     messageBox.innerHTML = "You already have a color named " + nameInput.value + " in your inventory";
-  } else if (currentColor in Object.values(inventory)) { //Fix this functionality
-    messageBox.innerHTML = "Current color in inventory.values() and its: " + currentColor
+  } else if (valueInInventory()) {
+    messageBox.innerHTML = "Do you want to change this color's name to " + nameInput.value + " ?";
+  } else {
+    messageBox.innerHTML = "Conditions passed, next implement save functionality"
   };
 };
