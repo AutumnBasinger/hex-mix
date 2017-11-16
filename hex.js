@@ -49,21 +49,19 @@ function mixNum(){
 var nameInput = document.getElementById("nameInput");
 var inventoryBox = document.getElementById("inventoryBox");
 
-var colors = []
-
-//updates var colors (list of inventory arrays)
 function inventoryValues(){
+  var inventoryValues = []
   for (var key in inventory){
-    colors.push(inventory[key]);
+    inventoryValues.push(inventory[key]);
+    return inventoryValues;
   };
 };
 
 //checks if currentColor (color shown) in colors list
 function valueInInventory() {
-  inventoryValues();
-  var i = colors.length;
+  var i = inventoryValues().length;
   while (i--) {
-    if (colors[i] === currentColor) {
+    if (inventoryValues()[i] === currentColor) {
       return true;
     };
   };
@@ -78,6 +76,8 @@ function saveName(){
   } else if (valueInInventory()) {
     messageBox.innerHTML = "Do you want to change this color's name to " + nameInput.value + " ?";
   } else {
-    messageBox.innerHTML = "Conditions passed, next implement save functionality"
+    inventory[nameInput.value] = currentColor;
+    messageBox.innerHTML = "You just added the color " + nameInput.value + " to your inventory!";
+    inventoryBox.innerHTML = Object.keys(inventory);
   };
 };
