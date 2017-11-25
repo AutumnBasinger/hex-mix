@@ -1,55 +1,53 @@
-var tube = [[255,0,255], [255,255,0], [0,255,255]]
-var pallete = [undefined, undefined, undefined]
-var canvas = [undefined, undefined, undefined]
-
-function makeTube(name, value){
-  var name = document.getElementById(string(name));
-  var value = value
-}
-
-function update(tile, clear){
-  if (clear) {
-    tile.style.backgroundColor = undefined;
-  } else {
-    tile.value = "new value"
-    tile.style.backgroundColor = "rgb(" + "new value" + ")";
+function tile(type, value){
+  this.type = type;
+  this.value = value;
+  this.get = function() {
+    document.getElementById(string(tile));
+  };
+  this.update = function(clear){
+    if (clear) {
+      this.style.backgroundColor = undefined;
+    } else {
+      this.value = "rgb3";
+      this.style.backgroundColor = "rgb(" + "rgb3" + ")";
+    };
   };
 };
 
-function getColor(tile){
-  //return tile.value
+function makeTube(name, value) {
+  //var name = new tile(tube, value);
+  //create HTML element with ID = name
 }
 
-function drag(t1, t2){
-  //getColor(t1)
-  //getColor(t2)
-  //anything + tube = error()
-  //anything + pallete = calculate()
-  //anything + canvas = arrange()
-}
+function makePalleteAndCanvas(numPallete, numCanvas) {
+  //for range numPallete
+    //var numPallete[x] = new tile(pallete, undefined);
+    //create HTML element with ID = numPallete[x];
+  //for range numCanvas
+    //var numCanvas[x] = new tile(canvas, undefined);
+    //create HTML element with ID = numCanvas[x];
+};
 
-function error(){
-  //display eror
-}
+makeTube(m, [255,0,255]);
+makeTube(y, [255,255,0]);
+makeTube(c, [0,255,255]);
+makePalleteAndCanvas(3, 3);
 
-function calculate(){
-  //calculate and display color
-  //var mixNew = []
-  //mixNew.push(Math.round((mv1[0]+mv2[0])/n));
-  //mixNew.push(Math.round((mv1[1]+mv2[1])/n));
-  //mixNew.push(Math.round((mv1[2]+mv2[2])/n));
-}
-
-function arrange(){
-  //update arrangement
-}
-
-var m = document.getElementById("m");
-var y = document.getElementById("y");
-var c = document.getElementById("c");
-var p1 = document.getElementById("p1");
-var p2 = document.getElementById("p2");
-var p3 = document.getElementById("p3");
-var c1 = document.getElementById("c1");
-var c2 = document.getElementById("c2");
-var c3 = document.getElementById("c3");
+//add click hold event listeners to all tiles
+//on click hold event:
+  //start listening for drop event
+  //show small colored square at mouse
+  //get tile.type and tile.value
+//on drop event:
+  //get tile.type and tile.value
+  //if dropped on tube:
+    //error message
+  //if dropped on pallete:
+    //caluclate tile1.value and tile2.value
+    //update tile color
+    //assign new value to tile
+  //if dropped on canvas:
+    //if undefined:
+      //paste tile1.value on tile
+    //else:
+      //arrange HTML elements

@@ -1,23 +1,47 @@
-* {
-  border-style: solid;
-  border-width: thin;
-  border-color: red;
-  }
-
-div {
-  border-style: solid;
-  border-width: thin;
-  border-color: blue;
-}
-
-#tiles div {
+#tube div {
   display: block;
   float: left;
 
   width: 150px;
   height: 150px;
-  background: black;
+  background-color: cyan;
 
   margin-right: 5px;
   margin-bottom: 5px;
+
+  border-style: dashed;
+  border-width: thin;
+  border-color: red;
+}
+
+#palette div {
+  display: block;
+  float: left;
+
+  width: 150px;
+  height: 150px;
+  background-color: grey;
+
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  border-style: dashed;
+  border-width: thin;
+  border-color: red;
+}
+
+#canvas div {
+  display: block;
+  float: left;
+
+  width: 150px;
+  height: 150px;
+  background-color: lightgrey;
+
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  border-style: dashed;
+  border-width: thin;
+  border-color: red;
 }
