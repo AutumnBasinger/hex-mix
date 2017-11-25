@@ -1,39 +1,47 @@
-function tile(type, value){
+function Tile(type, value){
   this.type = type;
   this.value = value;
-  this.get = function() {
-    document.getElementById(string(tile));
-  };
+
+  this.div = document.createElement('div');
+  this.div.setAttribute('draggable', true);
+  this.div.className = 'tile';
+
   this.update = function(clear){
     if (clear) {
       this.style.backgroundColor = undefined;
     } else {
       this.value = "rgb3";
       this.style.backgroundColor = "rgb(" + "rgb3" + ")";
-    };
+    }
   };
-};
-
-function makeTube(name, value) {
-  //var name = new tile(tube, value);
-  //create HTML element with ID = name
 }
 
-function makePalleteAndCanvas(numPallete, numCanvas) {
-  //for range numPallete
-    //var numPallete[x] = new tile(pallete, undefined);
-    //create HTML element with ID = numPallete[x];
-  //for range numCanvas
-    //var numCanvas[x] = new tile(canvas, undefined);
-    //create HTML element with ID = numCanvas[x];
-};
+function makeTube(value) { //no name?
+  let tube = new Tile('tube', value); //let?
+  tubes.append(tube.div);
+}
 
-makeTube(m, [255,0,255]);
-makeTube(y, [255,255,0]);
-makeTube(c, [0,255,255]);
-makePalleteAndCanvas(3, 3);
+function makePalette() {
+  let palette = new Tile('palette');
+  palettes.append(palette.div);
+}
+
+function makeCanvas() {
+  let canvas = new Tile('canvas');
+  canvases.append(canvas.div);
+}
+
+makeTube([255,0,255])
+makeTube([255,255,0])
+makeTube([0,255,255])
+
+makePalette()
+makeCanvas()
+
 
 //add click hold event listeners to all tiles
+//mouse down and mouse up for every tile, in tile constructor
+//global current color
 //on click hold event:
   //start listening for drop event
   //show small colored square at mouse
