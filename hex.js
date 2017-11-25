@@ -1,10 +1,11 @@
 //initial default inventory
-var inventory = {};
-inventory.red = [255, 0, 0];
-inventory.green = [0, 255, 0];
-inventory.blue = [0, 0, 255];
-inventory.white = [255, 255, 255];
-inventory.black = [0, 0, 0];
+var inventory = {
+  red: [225, 0, 0],
+  green: [0, 255, 0],
+  blue: [0, 0, 255],
+  white: [255, 255, 255],
+  black: [0, 0, 0]
+};
 
 var viewBox = document.getElementById("viewBox"); //color output
 var messageBox = document.getElementById("messageBox"); //message output
@@ -21,8 +22,8 @@ function viewNum(){
     dev.innerHTML = "Dev: currentColor variable = " + currentColor;
   } else {
     messageBox.innerHTML = "You don't have that color yet";
-  };
-};
+  }
+}
 
 var mi1 = document.getElementById("mi1"); //string
 var mi2 = document.getElementById("mi2"); //string
@@ -43,30 +44,20 @@ function mixNum(){
     dev.innerHTML = "Dev: currentColor variable = " + currentColor;
   } else {
     messageBox.innerHTML = "You don't have at least one of those colors yet"
-  };
-};
+  }
+}
 
 var nameInput = document.getElementById("nameInput");
 var inventoryBox = document.getElementById("inventoryBox");
 
-function inventoryValues(){
-  var inventoryValues = []
-  for (var key in inventory){
-    inventoryValues.push(inventory[key]);
-    return inventoryValues;
-  };
-};
+function isCurrentColor(color){
+  return arrEquals(color, currentColor);
+}
 
 //checks if currentColor (color shown) in colors list
 function valueInInventory() {
-  var i = inventoryValues().length;
-  while (i--) {
-    if (inventoryValues()[i] === currentColor) {
-      return true;
-    };
-  };
-  return false;
-};
+  return Object.values(inventory).some(isCurrentColor);
+}
 
 function saveName(){
   if (currentColor === undefined) {
@@ -79,5 +70,9 @@ function saveName(){
     inventory[nameInput.value] = currentColor;
     messageBox.innerHTML = "You just added the color " + nameInput.value + " to your inventory!";
     inventoryBox.innerHTML = Object.keys(inventory);
-  };
-};
+  }
+}
+
+function arrEquals(a, b){
+  return a.length === b.length && a.every((el, i) => el === b[i]);
+}
