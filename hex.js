@@ -1,19 +1,32 @@
+let firstColor;
+let secondColor;
+
 function Tile(type, value){
   this.type = type;
   this.value = value;
-
   this.div = document.createElement('div');
-  this.div.setAttribute('draggable', true);
   this.div.className = 'tile';
 
-  this.update = function(clear){
-    if (clear) {
-      this.style.backgroundColor = undefined;
-    } else {
-      this.value = "rgb3";
-      this.style.backgroundColor = "rgb(" + "rgb3" + ")";
-    }
+  this.update = function(){
+    this.div.style.backgroundColor = "rgb(" + this.value + ")";
   };
+  this.update();
+
+  this.div.addEventListener('dragstart', (event) => event.preventDefault());
+  this.div.addEventListener('mousedown', () => firstColor = value);
+  this.div.addEventListener('mouseup', () => {
+    secondColor = value;
+    if (type === 'tube') {
+      //error message
+    } else if (type === 'palette') {
+      if (secondColor === undefined) {
+        this.value = firstColor;
+        this.update();
+      } else {
+        //calculate
+      }
+    }
+  });
 }
 
 function makeTube(value) {
