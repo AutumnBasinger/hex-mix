@@ -1,6 +1,8 @@
 let firstColor;
 let secondColor;
 
+let message = document.getElementById('message')
+
 function Tile(type, value){
   this.type = type;
   this.value = value;
@@ -9,7 +11,7 @@ function Tile(type, value){
 
   this.update = function(){
     this.div.style.backgroundColor = "rgb(" + this.value + ")";
-  };
+  }
   this.update();
 
   this.div.addEventListener('dragstart', (event) => event.preventDefault());
@@ -17,7 +19,7 @@ function Tile(type, value){
   this.div.addEventListener('mouseup', () => {
     secondColor = value;
     if (type === 'tube') {
-      //error message
+      message.innerHTML = "Don't contaminate your tube!"
     } else if (type === 'palette') {
       if (secondColor === undefined) {
         this.value = firstColor;
@@ -44,12 +46,25 @@ function makeCanvas() {
   canvas.append(newCanvas.div);
 }
 
-makeTube([255,0,255])
-makeTube([255,255,0])
-makeTube([0,255,255])
+tubes = [
+  [255,0,255],
+  [255,255,0],
+  [0,255,255]
+];
 
-makePalette()
-makeCanvas()
+function makeTiles(tubes, numP, numC) {
+  for (i = 0; i < tubes.length; i++) {
+    makeTube(tubes[i]);
+  }
+  for (i = 0; i < numP; i++) {
+    makePalette();
+  }
+  for (i = 0; i < numC; i++) {
+    makeCanvas();
+  }
+}
+
+makeTiles(tubes, 3, 3);
 
 
 //add click hold event listeners to all tiles
