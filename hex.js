@@ -16,19 +16,19 @@ function Tile(type, value){
   };
 }
 
-function makeTube(value) { //no name?
-  let tube = new Tile('tube', value); //let?
-  tubes.append(tube.div);
+function makeTube(value) {
+  let newTube = new Tile('tube', value);
+  tube.append(newTube.div);
 }
 
 function makePalette() {
-  let palette = new Tile('palette');
-  palettes.append(palette.div);
+  let newPalette = new Tile('palette');
+  palette.append(newPalette.div);
 }
 
 function makeCanvas() {
-  let canvas = new Tile('canvas');
-  canvases.append(canvas.div);
+  let newCanvas = new Tile('canvas');
+  canvas.append(newCanvas.div);
 }
 
 makeTube([255,0,255])

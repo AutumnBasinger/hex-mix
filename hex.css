@@ -1,4 +1,4 @@
-#tubes div {
+#tube div {
   display: block;
   float: left;
 
@@ -14,7 +14,7 @@
   border-color: red;
 }
 
-#palettes div {
+#palette div {
   display: block;
   float: left;
 
@@ -30,7 +30,7 @@
   border-color: red;
 }
 
-#canvases div {
+#canvas div {
   display: block;
   float: left;
 
