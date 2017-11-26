@@ -17,7 +17,7 @@ function Tile(type, value){
   this.div.addEventListener('dragstart', (event) => event.preventDefault());
   this.div.addEventListener('mousedown', () => firstColor = value);
   this.div.addEventListener('mouseup', () => {
-    secondColor = value;
+    secondColor = this.value;
     if (type === 'tube') {
       message.innerHTML = "Don't contaminate your tube!"
     } else if (type === 'palette') {
@@ -25,7 +25,12 @@ function Tile(type, value){
         this.value = firstColor;
         this.update();
       } else {
-        //calculate
+        let newColor = [];
+        newColor.push(Math.round((firstColor[0]+secondColor[0])/2));
+        newColor.push(Math.round((firstColor[1]+secondColor[1])/2));
+        newColor.push(Math.round((firstColor[2]+secondColor[2])/2));
+        this.value = newColor;
+        this.update();
       }
     }
   });
