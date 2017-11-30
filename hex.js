@@ -32,6 +32,13 @@ function Tile(type, value){
         this.value = newColor;
         this.update();
       }
+    } else if (type === 'canvas') {
+      if (secondColor === undefined) {
+        this.value = firstColor;
+        this.update();
+      } else {
+        //arrange as needed
+      }
     }
   });
 }
@@ -54,7 +61,7 @@ function makeCanvas() {
 tubes = [
   [255,0,255],
   [255,255,0],
-  [0,255,255]
+  [0,255,255],
 ];
 
 function makeTiles(tubes, numP, numC) {
@@ -69,7 +76,7 @@ function makeTiles(tubes, numP, numC) {
   }
 }
 
-makeTiles(tubes, 3, 3);
+makeTiles(tubes, 6, 0);
 
 
 //add click hold event listeners to all tiles
