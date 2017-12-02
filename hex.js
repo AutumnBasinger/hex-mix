@@ -6,23 +6,13 @@ function Color(value){
   this.value = value;
   this.div = document.createElement('div');
   this.div.className = 'color';
+  this.div.style.backgroundColor = "rgb(" + this.value + ")";
   this.div.addEventListener('onclick', () => {
     currentSet.push(this.value);
   });
 }
 
-function makeColor(value) {
-  let newColor = new Color(value);
-  colorButtons.append(newColor.div);
-}
-
-function makeColors(values) {
-  for (i = 0; i < values.length; i++) {
-    makeColor(values[i]);
-  }
-}
-
-values = [
+colorValues = [
   [255,0,0],
   [0,255,0],
   [0,0,255],
@@ -35,4 +25,12 @@ values = [
   [0,0,0]
 ];
 
-makeColors(values);
+function makeColors(colorValues) {
+  for (i = 0; i < colorValues.length; i++) {
+    let newColor = new Color(colorValues[i]);
+    console.log(newColor);
+    colorButtons.append(newColor.div);
+  }
+}
+
+makeColors(colorValues);
