@@ -28,7 +28,6 @@ colorValues = [
 function makeColors(colorValues) {
   for (i = 0; i < colorValues.length; i++) {
     let newColor = new Color(colorValues[i]);
-    console.log(newColor);
     colorButtons.append(newColor.div);
   }
 }

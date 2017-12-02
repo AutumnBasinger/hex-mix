@@ -1,9 +1,9 @@
-.tile {
+.color {
   display: block;
   float: left;
 
-  width: 90px;
-  height: 90px;
+  width: 200px;
+  height: 200px;
 
   margin-right: 5px;
   margin-bottom: 5px;
