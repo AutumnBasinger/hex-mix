@@ -1,3 +1,18 @@
+#screenOutput {
+  display: block;
+  float: left;
+
+  width: 200px;
+  height: 200px;
+
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  border-style: solid;
+  border-width: thin;
+  border-color: grey;
+}
+
 .color {
   display: block;
   float: left;

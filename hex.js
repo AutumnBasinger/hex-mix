@@ -15,6 +15,10 @@ colorValues = [
   [0,0,0]
 ];
 
+function newColorToScreen(newColor){
+  
+}
+
 operationsList = [
   (function add(color1, color2) {
     for (i = 0; i < 3; i++) {
@@ -45,7 +49,7 @@ function Color(value){
   });
 }
 
-function makeColors() {
+function makeColors(){
   for (i = 0; i < colorValues.length; i++) {
     let newColor = new Color(colorValues[i]);
     colorButtons.append(newColor.div);
@@ -61,7 +65,7 @@ function Operation(operation, symbol){
   });
 }
 
-function makeOperations() {
+function makeOperations(){
   for (i = 0; i < operationsList.length; i++) {
     let newOperation = new Operation(operationsList[i], symbolsList[i]);
     operationButtons.append(newOperation.div);
