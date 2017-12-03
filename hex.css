@@ -8,7 +8,25 @@
   margin-right: 5px;
   margin-bottom: 5px;
 
-  border-style: dashed;
+  border-style: solid;
   border-width: thin;
-  border-color: red;
+  border-color: grey;
+}
+
+.operation {
+  display: block;
+  float: left;
+
+  width: 200px;
+  height: 200px;
+
+  margin-right: 5px;
+  margin-bottom: 5px;
+
+  border-style: solid;
+  border-width: thin;
+  border-color: grey;
+  background-color: lightgrey;
+  font-size: 180px;
+  text-align: center;
 }
