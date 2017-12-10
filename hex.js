@@ -1,11 +1,18 @@
 let color1;
 let color2;
-let newColor;
+let storedOperation;
+let outputColor = [0,0,0];
+
+let state = 0;
+//0 - nothing
+//1 - C1 stored
+//2 - C1, operation stored
+//3 - C1, operation, C2 stored
 
 colorValues = [
-  [255,0,0],
-  [0,255,0],
-  [0,0,255],
+  [255,0,0], //red
+  [0,255,0], //green
+  [0,0,255], //blue
   [170,0,0],
   [0,170,0],
   [0,0,170],
@@ -15,62 +22,69 @@ colorValues = [
   [0,0,0]
 ];
 
-function newColorToScreen(newColor){
-  
+function output(outputColor){
+  let screenOutput = document.getElementById('screenOutput');
+  screenOutput.style.backgroundColor = "rgb(" + outputColor + ")";
 }
-
-operationsList = [
-  (function add(color1, color2) {
-    for (i = 0; i < 3; i++) {
-      newColor.push(color1[i] + color2[i]);
-    }
-    return newColor;
-  }),
-  (function subtract(color1, color2) {
-    for (i = 0; i < 3; i++) {
-      newColor.push(color1[i] - color2[i]);
-    }
-    return newColor;
-  })
-];
-
-symbolsList = [
-  '+',
-  '-'
-]
 
 function Color(value){
   this.value = value;
   this.div = document.createElement('div');
   this.div.className = 'color';
   this.div.style.backgroundColor = "rgb(" + this.value + ")";
-  this.div.addEventListener('onclick', () => {
-    color1 = this.value;
+  this.div.addEventListener('click', () => {
+    output(this.value);
   });
 }
 
 function makeColors(){
   for (i = 0; i < colorValues.length; i++) {
-    let newColor = new Color(colorValues[i]);
-    colorButtons.append(newColor.div);
+    let color = new Color(colorValues[i]);
+    colorButtons.append(color.div);
   }
 }
 
-function Operation(operation, symbol){
-  this.div = document.createElement('div');
-  this.div.className = 'operation';
-  this.div.innerHTML = symbol
-  this.div.addEventListener('onclick', () => {
-    //listen for color2
+function clear() {
+  output([0,0,0]);
+  state = 0;
+}
+
+function enter() {
+  if (state === 2) {
+    color2 = color1;
+    //call storedOperation (calculates, updates )
+    state = 1
+  } else if (state === 3) {
+    // call storedOperation
+    state = 1;
+  }
+}
+
+function add(){
+  div = document.createElement('div');
+  div.className = 'operation';
+  div.innerHTML = 'add';
+  div.addEventListener('click', () => {
+    if (state === 0) {
+      color1 = [0,0,0];
+      storedOperation = add();
+      state = 2;
+    } else if (state === 1) {
+      storedOperation = add();
+      state = 2;
+    } else if (state === 2) {
+      storedOperation = add();
+    } else if (state === 3) {
+      outputColor = [];
+      for (i = 0; i < 3; i++) {
+        outputColor.push(color1[i] + color2[i]);
+      }
+      output(outputColor);
+      color1 = outputColor;
+      storedOperation = add();
+      state = 2;
+    }
   });
 }
 
-function makeOperations(){
-  for (i = 0; i < operationsList.length; i++) {
-    let newOperation = new Operation(operationsList[i], symbolsList[i]);
-    operationButtons.append(newOperation.div);
-  }
-}
-
 makeColors();
-makeOperations();
