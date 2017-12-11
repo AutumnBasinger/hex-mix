@@ -1,5 +1,5 @@
-let color1;
-let color2;
+let color1 = [0,0,0];
+let color2 = [0,0,0];
 let storedOperation;
 let outputColor = [0,0,0];
 
@@ -60,28 +60,36 @@ function enter() {
   }
 }
 
-function Operation(name){
-  this.name = name
+function Operation(operationObject){
   this.div = document.createElement('div');
   this.div.className = 'operation';
-  this.div.innerHTML = this.name;
+  this.div.innerHTML = String(operationObject).substr(9,3);
   this.div.addEventListener('click', () => {
     if (state === 0) {
       color1 = [0,0,0];
-      storedOperation = this.name;
+      storedOperation = operationObject;
       state = 2;
     } else if (state === 1) {
-      storedOperation = this.name;
+      storedOperation = operationObject;
       state = 2;
     } else if (state === 2) {
-      storedOperation = this.name;
+      storedOperation = operationObject;
     } else if (state === 3) {
-      name();
+      operationObject();
       color1 = outputColor;
-      storedOperation = this.name;
+      storedOperation = operationObject;
       state = 2;
     }
+    console.log('stored operation: ' + storedOperation)
+    console.log('operation object: ' + operationObject)
   });
+}
+
+function makeOperations() {
+  for (i = 0; i < operationsList.length; i++) {
+    let operation = new Operation(operationsList[i]);
+    operationButtons.append(operation.div);
+  }
 }
 
 function add() {
@@ -90,7 +98,13 @@ function add() {
     outputColor.push(color1[i] + color2[i]);
   }
   output(outputColor);
+  console.log("It added!")
 }
 
+operationsList = [
+  add,
+]
+
 makeColors();
+makeOperations();
 output(outputColor);
