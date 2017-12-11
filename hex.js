@@ -48,17 +48,19 @@ function makeColors(){
 function clear() {
   output([0,0,0]);
   state = 0;
+  console.log('cleared');
 }
 
 function enter() {
   if (state === 2) {
     color2 = color1;
-    //call storedOperation (calculates, updates )
+    storedOperation();
     state = 1
   } else if (state === 3) {
-    // call storedOperation
+    storedOperation();
     state = 1;
   }
+  console.log('enter pressed');
 }
 
 function Operation(operationObject){
@@ -66,7 +68,11 @@ function Operation(operationObject){
   this.div.className = 'operation';
   this.div.innerHTML = String(operationObject).substr(9,3);
   this.div.addEventListener('click', () => {
-    if (state === 0) {
+    if (this === clear) {
+      operationObject();
+    } else if (this === enter) {
+      operationObject();
+    } else if (state === 0) {
       color1 = [0,0,0];
       storedOperation = operationObject;
       state = 2;
@@ -81,6 +87,7 @@ function Operation(operationObject){
       storedOperation = operationObject;
       state = 2;
     }
+    console.log(operationObject);
   });
 }
 
@@ -110,8 +117,10 @@ function subtract() {
 }
 
 operationsList = [
+  clear,
   add,
-  subtract
+  subtract,
+  enter
 ]
 
 makeColors();
