@@ -25,6 +25,7 @@ colorValues = [
 function output(outputColor){
   let screenOutput = document.getElementById('screenOutput');
   screenOutput.style.backgroundColor = "rgb(" + outputColor + ")";
+  screenOutput.innerHTML = String(outputColor);
 }
 
 function Color(value){
@@ -80,8 +81,6 @@ function Operation(operationObject){
       storedOperation = operationObject;
       state = 2;
     }
-    console.log('stored operation: ' + storedOperation)
-    console.log('operation object: ' + operationObject)
   });
 }
 
@@ -98,11 +97,21 @@ function add() {
     outputColor.push(color1[i] + color2[i]);
   }
   output(outputColor);
-  console.log("It added!")
+  console.log('it added')
+}
+
+function subtract() {
+  outputColor = [];
+  for (i = 0; i < 3; i++) {
+    outputColor.push(color1[i] - color2[i]);
+  }
+  output(outputColor);
+  console.log('it subtracted')
 }
 
 operationsList = [
   add,
+  subtract
 ]
 
 makeColors();
