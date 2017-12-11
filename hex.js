@@ -60,31 +60,37 @@ function enter() {
   }
 }
 
-function add(){
-  div = document.createElement('div');
-  div.className = 'operation';
-  div.innerHTML = 'add';
-  div.addEventListener('click', () => {
+function Operation(name){
+  this.name = name
+  this.div = document.createElement('div');
+  this.div.className = 'operation';
+  this.div.innerHTML = this.name;
+  this.div.addEventListener('click', () => {
     if (state === 0) {
       color1 = [0,0,0];
-      storedOperation = add();
+      storedOperation = this.name;
       state = 2;
     } else if (state === 1) {
-      storedOperation = add();
+      storedOperation = this.name;
       state = 2;
     } else if (state === 2) {
-      storedOperation = add();
+      storedOperation = this.name;
     } else if (state === 3) {
-      outputColor = [];
-      for (i = 0; i < 3; i++) {
-        outputColor.push(color1[i] + color2[i]);
-      }
-      output(outputColor);
+      name();
       color1 = outputColor;
-      storedOperation = add();
+      storedOperation = this.name;
       state = 2;
     }
   });
 }
 
+function add() {
+  outputColor = [];
+  for (i = 0; i < 3; i++) {
+    outputColor.push(color1[i] + color2[i]);
+  }
+  output(outputColor);
+}
+
 makeColors();
+output(outputColor);
