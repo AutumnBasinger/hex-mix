@@ -46,6 +46,7 @@ function Color(value){
     } else if (state === 3) {
       color2 = this.value;
     }
+    console.log('state: ' + state + ', color: ' + this.value);
   });
 }
 
@@ -58,8 +59,6 @@ function makeColors(){
 
 function clear() {
   output([0,0,0]);
-  state = 0;
-  console.log('cleared');
 }
 
 function enter() {
@@ -71,7 +70,6 @@ function enter() {
     storedOperation();
     state = 1;
   }
-  console.log('enter pressed');
 }
 
 function Operation(operationObject){
@@ -79,9 +77,10 @@ function Operation(operationObject){
   this.div.className = 'operation';
   this.div.innerHTML = String(operationObject).substr(9,3);
   this.div.addEventListener('click', () => {
-    if (this === clear) {
+    if (operationObject === clear) {
       operationObject();
-    } else if (this === enter) {
+      state = 0;
+    } else if (operationObject === enter) {
       operationObject();
     } else if (state === 0) {
       color1 = [0,0,0];
@@ -98,7 +97,7 @@ function Operation(operationObject){
       storedOperation = operationObject;
       state = 2;
     }
-    console.log(operationObject);
+    console.log('state: ' + state + ', operation: ' + this.div.innerHTML);
   });
 }
 
@@ -115,7 +114,6 @@ function add() {
     outputColor.push(color1[i] + color2[i]);
   }
   output(outputColor);
-  console.log('it added')
 }
 
 function subtract() {
@@ -124,7 +122,6 @@ function subtract() {
     outputColor.push(color1[i] - color2[i]);
   }
   output(outputColor);
-  console.log('it subtracted')
 }
 
 operationsList = [
