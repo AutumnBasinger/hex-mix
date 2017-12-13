@@ -35,6 +35,17 @@ function Color(value){
   this.div.style.backgroundColor = "rgb(" + this.value + ")";
   this.div.addEventListener('click', () => {
     output(this.value);
+    if (state === 0) {
+      color1 = this.value;
+      state = 1;
+    } else if (state === 1) {
+      color1 = this.value;
+    } else if (state === 2) {
+      color2 = this.value;
+      state = 3;
+    } else if (state === 3) {
+      color2 = this.value;
+    }
   });
 }
 
