@@ -65,10 +65,8 @@ function enter() {
   if (state === 2) {
     color2 = color1;
     storedOperation();
-    state = 1
   } else if (state === 3) {
     storedOperation();
-    state = 1;
   }
 }
 
@@ -82,6 +80,7 @@ function Operation(operationObject){
       state = 0;
     } else if (operationObject === enter) {
       operationObject();
+      state = 1;
     } else if (state === 0) {
       color1 = [0,0,0];
       storedOperation = operationObject;
