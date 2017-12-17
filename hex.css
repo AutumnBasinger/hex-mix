@@ -1,25 +1,49 @@
-#app, #buttons {
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  max-width: 40em;
+  margin: auto;
+}
+
+#history {
+  height: 2em;
   border-style: solid;
-  border-color: grey;
+  border-width: thin;
+  display: flex;
+}
+
+#cc, #co {
+  height: inherit;
+  width: 50%;
+  border-style: solid;
+  border-width: thin;
 }
 
 #screen {
-  margin: .5em;
   height: 4em;
+  margin-top: .5em;
 }
 
 #buttons {
   display: flex;
-  flex-wrap: wrap;
-  margin: .5em;
+  margin-top: .5em;
+}
+
+#red, #green, #blue, #operations {
+  width: 25%;
 }
 
 .color, .operation {
-  width: 4em;
-  height: 4em;
+  height: 3em;
+  min-width: 2em;
+  background-color: lightgrey;
 }
 
 .operation {
-  background: lightgrey;
   text-align: center;
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
 }
