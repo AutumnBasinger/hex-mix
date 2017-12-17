@@ -9,23 +9,38 @@ let state = 0;
 //2 - C1, operation stored
 //3 - C1, operation, C2 stored
 
-colorValues = [
-  [255,0,0], //red
-  [0,255,0], //green
-  [0,0,255], //blue
-  [170,0,0],
-  [0,170,0],
-  [0,0,170],
-  [85,0,0],
-  [0,85,0],
-  [0,0,85],
+reds = [
+  [255,0,0],
+  [204,0,0],
+  [153,0,0],
+  [102,0,0],
+  [51,0,0],
+];
+
+greens = [
+  [0,255,0],
+  [0,204,0],
+  [0,153,0],
+  [0,102,0],
+  [0,51,0],
+];
+
+blues = [
+  [0,0,255],
+  [0,0,204],
+  [0,0,153],
+  [0,0,102],
+  [0,0,51]
+];
+
+black = [
   [0,0,0]
 ];
 
 function output(outputColor){
-  let screenOutput = document.getElementById('screenOutput');
-  screenOutput.style.backgroundColor = "rgb(" + outputColor + ")";
-  screenOutput.innerHTML = String(outputColor);
+  let screen = document.getElementById('screen');
+  screen.style.backgroundColor = "rgb(" + outputColor + ")";
+  screen.innerHTML = String(outputColor);
 }
 
 function Color(value){
@@ -50,10 +65,24 @@ function Color(value){
   });
 }
 
-function makeColors(){
-  for (i = 0; i < colorValues.length; i++) {
-    let color = new Color(colorValues[i]);
-    colorButtons.append(color.div);
+function makeReds(){
+  for (i = 0; i < reds.length; i++) {
+    let color = new Color(reds[i]);
+    red.append(color.div);
+  }
+}
+
+function makeGreens(){
+  for (i = 0; i < greens.length; i++) {
+    let color = new Color(greens[i]);
+    green.append(color.div);
+  }
+}
+
+function makeBlues(){
+  for (i = 0; i < blues.length; i++) {
+    let color = new Color(blues[i]);
+    blue.append(color.div);
   }
 }
 
@@ -103,7 +132,7 @@ function Operation(operationObject){
 function makeOperations() {
   for (i = 0; i < operationsList.length; i++) {
     let operation = new Operation(operationsList[i]);
-    operationButtons.append(operation.div);
+    operations.append(operation.div);
   }
 }
 
@@ -123,13 +152,33 @@ function subtract() {
   output(outputColor);
 }
 
+function divide() {
+  outputColor = [];
+  for (i = 0; i < 3; i++) {
+    outputColor.push(color1[i] / color2[i]);
+  }
+  output(outputColor);
+}
+
+function multiply() {
+  outputColor = [];
+  for (i = 0; i < 3; i++) {
+    outputColor.push(color1[i] * color2[i]);
+  }
+  output(outputColor);
+}
+
 operationsList = [
   clear,
-  add,
+  divide,
+  multiply,
   subtract,
+  add,
   enter
 ]
 
-makeColors();
+makeReds();
+makeGreens();
+makeBlues();
 makeOperations();
 output(outputColor);

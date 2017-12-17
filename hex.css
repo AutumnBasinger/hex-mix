@@ -1,32 +1,25 @@
-#buttons > div > div, #screen, #screenOutput {
-    display: block;
-    float: left;
-
-    width: 200px;
-    height: 200px;
-
-    margin-right: 5px;
-    margin-bottom: 5px;
-
-    border-style: solid;
-    border-width: thin;
-    border-color: grey;
-}
-
-#operationButtons div {
-  background-color: lightgrey;
-  font-size: 40px;
-  text-align: center;
-}
-
-#screenOutput {
-  width: 525px;
-  height: 200px;
-  color: white;
+#app, #buttons {
+  border-style: solid;
+  border-color: grey;
 }
 
 #screen {
-  width: 75px;
-  height: 200px;
-  color: white;
+  margin: .5em;
+  height: 4em;
+}
+
+#buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: .5em;
+}
+
+.color, .operation {
+  width: 4em;
+  height: 4em;
+}
+
+.operation {
+  background: lightgrey;
+  text-align: center;
 }
