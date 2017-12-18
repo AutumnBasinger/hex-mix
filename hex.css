@@ -1,35 +1,44 @@
 * {
   box-sizing: border-box;
+  font-size: 40px;
+  font-family: sans-serif;
+}
+
+p {
+  font-size: .5em;
 }
 
 #app {
-  max-width: 40em;
+  max-width: 15em;
   margin: auto;
 }
 
 #history {
-  height: 2em;
+  height: 1em;
   border-style: solid;
   border-width: thin;
   display: flex;
 }
 
-#c1, #co, #c2, #e {
+#colorScreen1, #colorScreen2, #operationScreen, #equalScreen {
   height: inherit;
-  width: 25%;
+  width: 35%;
   border-style: solid;
   border-width: thin;
-  text-align: center;
 }
 
-#screen {
-  height: 6em;
-  margin-top: .5em;
+#operationScreen, #equalScreen {
+  width: 15%;
+}
+
+#colorScreenBig {
+  height: 2em;
+  margin-top: .1em;
 }
 
 #buttons {
   display: flex;
-  margin-top: .5em;
+  margin-top: .1em;
 }
 
 #red, #green, #blue, #operations {
@@ -37,9 +46,11 @@
 }
 
 .color, .operation {
-  height: 3.5em;
-  min-width: 2em;
+  height: 1.5em;
+  min-width: 1em;
   background-color: lightgrey;
+  padding-top: .2em;
+  margin: .02em;
 }
 
 .operation {
@@ -47,5 +58,4 @@
   border-style: solid;
   border-color: black;
   border-width: thin;
-  padding: 1.2em;
 }

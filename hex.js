@@ -36,10 +36,14 @@ blues = [
   [0,0,0]
 ];
 
-function output(outputColor){
-  let screen = document.getElementById('screen');
-  screen.style.backgroundColor = "rgb(" + outputColor + ")";
-  screen.innerHTML = String(outputColor);
+let colorScreen1 = document.getElementById('colorScreen1');
+let operationScreen = document.getElementById('operationScreen');
+let colorScreen2 = document.getElementById('colorScreen2');
+let colorScreenBig = document.getElementById('colorScreenBig');
+
+function output(outputColor, screenDiv){
+  screenDiv.style.backgroundColor = "rgb(" + outputColor + ")";
+  screenDiv.innerHTML = String(outputColor);
 }
 
 function Color(value){
@@ -48,7 +52,7 @@ function Color(value){
   this.div.className = 'color';
   this.div.style.backgroundColor = "rgb(" + this.value + ")";
   this.div.addEventListener('click', () => {
-    output(this.value);
+    output(this.value, colorScreenBig);
     if (state === 0) {
       color1 = this.value;
       state = 1;
@@ -72,7 +76,7 @@ function makeColors(list, div){
 }
 
 function clear() {
-  output([0,0,0]);
+  output([0,0,0], colorScreenBig);
 }
 
 function enter() {
@@ -126,7 +130,7 @@ function add() {
   for (i = 0; i < 3; i++) {
     outputColor.push(color1[i] + color2[i]);
   }
-  output(outputColor);
+  output(outputColor, colorScreenBig);
 }
 
 function subtract() {
@@ -134,7 +138,7 @@ function subtract() {
   for (i = 0; i < 3; i++) {
     outputColor.push(color1[i] - color2[i]);
   }
-  output(outputColor);
+  output(outputColor, colorScreenBig);
 }
 
 function divide() {
@@ -142,7 +146,7 @@ function divide() {
   for (i = 0; i < 3; i++) {
     outputColor.push(color1[i] / color2[i]);
   }
-  output(outputColor);
+  output(outputColor, colorScreenBig);
 }
 
 function multiply() {
@@ -150,7 +154,7 @@ function multiply() {
   for (i = 0; i < 3; i++) {
     outputColor.push(color1[i] * color2[i]);
   }
-  output(outputColor);
+  output(outputColor, colorScreenBig);
 }
 
 operationsList = [
@@ -175,4 +179,4 @@ makeColors(reds, red);
 makeColors(blues, blue);
 makeColors(greens, green);
 makeOperations();
-output(outputColor);
+output(outputColor, colorScreenBig);
