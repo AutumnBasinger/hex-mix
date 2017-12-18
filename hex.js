@@ -84,10 +84,10 @@ function enter() {
   }
 }
 
-function Operation(operationObject){
+function Operation(operationObject, symbol){
   this.div = document.createElement('div');
   this.div.className = 'operation';
-  this.div.innerHTML = String(operationObject).substr(9,3);
+  this.div.innerHTML = symbol;
   this.div.addEventListener('click', () => {
     if (operationObject === clear) {
       operationObject();
@@ -116,7 +116,7 @@ function Operation(operationObject){
 
 function makeOperations() {
   for (i = 0; i < operationsList.length; i++) {
-    let operation = new Operation(operationsList[i]);
+    let operation = new Operation(operationsList[i], symbolsList[i]);
     operations.append(operation.div);
   }
 }
@@ -160,6 +160,15 @@ operationsList = [
   subtract,
   add,
   enter
+]
+
+symbolsList = [
+  'C', //clear
+  '÷', //divide
+  '×', //multiply
+  '−', //subtract
+  '+', //add
+  '=', //enter
 ]
 
 makeColors(reds, red);

@@ -14,11 +14,12 @@
   display: flex;
 }
 
-#cc, #co {
+#c1, #co, #c2, #e {
   height: inherit;
-  width: 50%;
+  width: 25%;
   border-style: solid;
   border-width: thin;
+  text-align: center;
 }
 
 #screen {
@@ -46,4 +47,5 @@
   border-style: solid;
   border-color: black;
   border-width: thin;
+  padding: 1.2em;
 }
