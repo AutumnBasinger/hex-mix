@@ -22,7 +22,7 @@
 }
 
 #screen {
-  height: 4em;
+  height: 6em;
   margin-top: .5em;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .color, .operation {
-  height: 3em;
+  height: 3.5em;
   min-width: 2em;
   background-color: lightgrey;
 }

@@ -15,6 +15,7 @@ reds = [
   [153,0,0],
   [102,0,0],
   [51,0,0],
+  [0,0,0]
 ];
 
 greens = [
@@ -23,6 +24,7 @@ greens = [
   [0,153,0],
   [0,102,0],
   [0,51,0],
+  [0,0,0]
 ];
 
 blues = [
@@ -30,10 +32,7 @@ blues = [
   [0,0,204],
   [0,0,153],
   [0,0,102],
-  [0,0,51]
-];
-
-black = [
+  [0,0,51],
   [0,0,0]
 ];
 
@@ -65,24 +64,10 @@ function Color(value){
   });
 }
 
-function makeReds(){
-  for (i = 0; i < reds.length; i++) {
-    let color = new Color(reds[i]);
-    red.append(color.div);
-  }
-}
-
-function makeGreens(){
-  for (i = 0; i < greens.length; i++) {
-    let color = new Color(greens[i]);
-    green.append(color.div);
-  }
-}
-
-function makeBlues(){
-  for (i = 0; i < blues.length; i++) {
-    let color = new Color(blues[i]);
-    blue.append(color.div);
+function makeColors(list, div){
+  for (i = 0; i < list.length; i++) {
+    let color = new Color(list[i]);
+    div.append(color.div);
   }
 }
 
@@ -177,8 +162,8 @@ operationsList = [
   enter
 ]
 
-makeReds();
-makeGreens();
-makeBlues();
+makeColors(reds, red);
+makeColors(blues, blue);
+makeColors(greens, green);
 makeOperations();
 output(outputColor);
