@@ -4,58 +4,18 @@
   font-family: sans-serif;
 }
 
-p {
-  font-size: .5em;
-}
-
-#app {
-  max-width: 15em;
+#colorOutput {
   margin: auto;
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  background: cyan;
 }
 
-#history {
-  height: 1em;
-  border-style: solid;
-  border-width: thin;
-  display: flex;
-}
-
-#colorScreen1, #colorScreen2, #operationScreen, #equalScreen {
-  height: inherit;
-  width: 35%;
-  border-style: solid;
-  border-width: thin;
-}
-
-#operationScreen, #equalScreen {
-  width: 15%;
-}
-
-#colorScreenBig {
-  height: 2em;
-  margin-top: .1em;
-}
-
-#buttons {
-  display: flex;
-  margin-top: .1em;
-}
-
-#red, #green, #blue, #operations {
-  width: 25%;
-}
-
-.color, .operation {
-  height: 1.5em;
-  min-width: 1em;
-  background-color: lightgrey;
-  padding-top: .2em;
-  margin: .02em;
-}
-
-.operation {
-  text-align: center;
-  border-style: solid;
-  border-color: black;
-  border-width: thin;
+@media screen and (max-width: 400px) {
+  #colorOutput {
+    width: 300px;
+    height: 300px;
+  }
 }
