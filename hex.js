@@ -39,6 +39,7 @@ blues = [
 let colorScreen1 = document.getElementById('colorScreen1');
 let operationScreen = document.getElementById('operationScreen');
 let colorScreen2 = document.getElementById('colorScreen2');
+let equalScreen = document.getElementById('equalScreen')
 let colorScreenBig = document.getElementById('colorScreenBig');
 
 function output(outputColor, screenDiv){
@@ -52,17 +53,20 @@ function Color(value){
   this.div.className = 'color';
   this.div.style.backgroundColor = "rgb(" + this.value + ")";
   this.div.addEventListener('click', () => {
-    output(this.value, colorScreenBig);
     if (state === 0) {
       color1 = this.value;
+      output(color1, colorScreen1);
       state = 1;
     } else if (state === 1) {
       color1 = this.value;
+      output(color1, colorScreen1);
     } else if (state === 2) {
       color2 = this.value;
+      output(color2, colorScreen2);
       state = 3;
     } else if (state === 3) {
       color2 = this.value;
+      output(color2, colorScreen2);
     }
     console.log('state: ' + state + ', color: ' + this.value);
   });
@@ -77,6 +81,10 @@ function makeColors(list, div){
 
 function clear() {
   output([0,0,0], colorScreenBig);
+  output([0,0,0], colorScreen1);
+  output([0,0,0], colorScreen2);
+  operationScreen.innerHTML = '';
+  equalScreen.innerHTML = '';
 }
 
 function enter() {
@@ -98,17 +106,22 @@ function Operation(operationObject, symbol){
       state = 0;
     } else if (operationObject === enter) {
       operationObject();
+      equalScreen.innerHTML = symbol;
       state = 1;
     } else if (state === 0) {
       color1 = [0,0,0];
       storedOperation = operationObject;
       state = 2;
+      operationScreen.innerHTML = symbol;
     } else if (state === 1) {
       storedOperation = operationObject;
       state = 2;
+      operationScreen.innerHTML = symbol;
     } else if (state === 2) {
       storedOperation = operationObject;
+      operationScreen.innerHTML = symbol;
     } else if (state === 3) {
+      operationScreen.innerHTML = symbol;
       operationObject();
       color1 = outputColor;
       storedOperation = operationObject;
@@ -180,3 +193,5 @@ makeColors(blues, blue);
 makeColors(greens, green);
 makeOperations();
 output(outputColor, colorScreenBig);
+output(color1, colorScreen1);
+output(color2, colorScreen2);
