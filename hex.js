@@ -1,16 +1,25 @@
 let colorOutput = document.getElementById('colorOutput');
+let minuteColor = document.getElementById('minuteColor');
 
 function main() {
   let time = new Date();
-  hour = time.getHours();
-  minute = time.getMinutes();
-  second = time.getSeconds();
+  currentSec = time.getSeconds(); //current second
+  currentMin = time.getMinutes(); //current minute
+  currentHour = time.getHours(); //current hour
 
-  red = Math.round(second * 4.26);
-  green = Math.round((minute * 4.26) + (red/60));
-  blue = Math.round((hour * 10.66) + (green/60));
+  tic = 256/60; //change in RGB value per 1 cycle out of 60
+  tock = 256/24; //change in RGB value per 1 cycle out of 24
 
-  colorOutput.style.backgroundColor = "rgb(" + [red, green, blue] + ")";
+  rgbSec = Math.round(tic*currentSec);
+  rgbMin = Math.round(tic*currentMin + rgbSec/60);
+  rgbHour = Math.round(tock*currentHour + rgbMin/60);
+
+  backSec = 256-rgbSec;
+  backMin = 256-rgbMin;
+  backHour = 256-rgbHour;
+
+  colorOutput.style.backgroundColor = "rgb(" + [rgbHour, rgbMin, rgbSec] + ")";
+  minuteColor.style.backgroundColor = "rgb(" + [backHour, backMin, backSec] + ")";
 }
 
 main();
