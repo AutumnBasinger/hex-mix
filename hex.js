@@ -1,7 +1,19 @@
 let colorOutput = document.getElementById('colorOutput');
-let minuteColor = document.getElementById('minuteColor');
+let clock = document.getElementById('clock');
 
-function main() {
+function Circle(value){
+  this.value = value;
+  this.div = document.createElement('div');
+  this.div.className = 'circle';
+  this.div.style.backgroundColor = "rgb(" + this.value + ")";
+}
+
+function makeCircle(value){
+  let circle = new Circle(value);
+  clock.append(circle.div);
+}
+
+function onSecond() {
   let time = new Date();
   currentSec = time.getSeconds(); //current second
   currentMin = time.getMinutes(); //current minute
@@ -18,10 +30,13 @@ function main() {
   backMin = 256-rgbMin;
   backHour = 256-rgbHour;
 
+  if (currentSec % 5 === 0) {
+    makeCircle([rgbHour, rgbMin, rgbSec]);
+  }
+
   colorOutput.style.backgroundColor = "rgb(" + [rgbHour, rgbMin, rgbSec] + ")";
-  minuteColor.style.backgroundColor = "rgb(" + [backHour, backMin, backSec] + ")";
 }
 
-main();
+onSecond();
 
-let timerID = setInterval(main, 1000);
+let timerID = setInterval(onSecond, 1000);
