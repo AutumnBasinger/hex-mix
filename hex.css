@@ -4,6 +4,14 @@
   font-family: sans-serif;
 }
 
+canvas {
+  margin: auto;
+  display: block;
+  border: thin solid black;
+  width: 200px;
+  height: 200px;
+}
+
 #clock {
   margin: auto;
   width: 240px;

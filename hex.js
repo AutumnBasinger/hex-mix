@@ -13,6 +13,18 @@ function makeCircle(value){
   clock.append(circle.div);
 }
 
+function makeCanvas(value){
+  let canvas = document.getElementById('canvas');
+  canvas.width = 400;
+  canvas.height = 400;
+  let ctx = canvas.getContext('2d');
+  ctx.scale(2,2);
+  ctx.beginPath();
+  ctx.arc(100,100,100,0,2*Math.PI);
+  ctx.fillStyle = "rgb(" + value + ")"
+  ctx.fill();
+}
+
 function onSecond() {
   let time = new Date();
   currentSec = time.getSeconds(); //current second
@@ -33,6 +45,8 @@ function onSecond() {
   if (currentSec % 5 === 0) {
     makeCircle([rgbHour, rgbMin, rgbSec]);
   }
+
+  makeCanvas([rgbHour, rgbMin, rgbSec]);
 
   colorOutput.style.backgroundColor = "rgb(" + [rgbHour, rgbMin, rgbSec] + ")";
 }
