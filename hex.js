@@ -38,21 +38,23 @@ function onSecond() {
   rgbMin = Math.round(tic*currentMin + rgbSec/60);
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
 
-  rgb = [rgbHour, rgbMin, rgbSec];
+  let rgb = [rgbHour, rgbMin, rgbSec];
 
   backSec = 255-rgbSec;
   backMin = 255-rgbMin;
   backHour = 255-rgbHour;
 
-  let backwards = [backHour, backMin, backSec];
+  let backwards = [rgbSec, rgbMin, rgbHour];
 
   drawCircle(100,100,80,0,rgb);
 
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
-  rgbTime.style.color = "rgb(" + backwards  + ")";
+  rgbTime.style.color = "rgb(" + rgb  + ")";
 
   if (currentSec % 5 === 0) {
-    if (secs.length === 12) { ///don't crash
+    if (secs.length === 12) {
+      secs.splice(0,1);
+      rgbs.splice(0,1);
     }
     makeCircles(12, currentSec/5, rgb, 62, 15); //divisions, position, color, offset, size
     secs.push(currentSec);
