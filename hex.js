@@ -4,14 +4,18 @@ canvas.height = 800;
 let ctx = canvas.getContext('2d');
 ctx.scale(4,4);
 
-function makeCircle(divisions, position, color) {
+let rgbTime = document.getElementById('rgbTime');
+
+let secs = [];
+let rgbs = [];
+
+function makeCircles(divisions, position, color, offset, size) {
   position = position-divisions/4;
   let deg = 360/divisions;
   let rad = (position*deg*2*Math.PI)/360;
-  r = 75;
-  let x = r * Math.cos(rad) + 100;
-  let y = r * Math.sin(rad) + 100;
-  drawCircle(x,y,15,0,color);
+  let x = offset * Math.cos(rad) + 100;
+  let y = offset * Math.sin(rad) + 100;
+  drawCircle(x,y,size,0,color);
 }
 
 function drawCircle(x,y,radius,start,color){
@@ -19,12 +23,6 @@ function drawCircle(x,y,radius,start,color){
   ctx.arc(x,y,radius,start,2*Math.PI);
   ctx.fillStyle = "rgb(" + color + ")"
   ctx.fill();
-}
-
-function populate(){
-  for (let i = 0; i < 12 ; i++) {
-    makeCircle(12,i,[backSec,backMin,backHour]);
-  }
 }
 
 function onSecond() {
@@ -40,14 +38,29 @@ function onSecond() {
   rgbMin = Math.round(tic*currentMin + rgbSec/60);
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
 
-  backSec = 256-rgbSec;
-  backMin = 256-rgbMin;
-  backHour = 256-rgbHour;
+  rgb = [rgbHour, rgbMin, rgbSec];
 
-  drawCircle(100,100,80,0,[rgbHour, rgbMin, rgbSec]);
+  backSec = 255-rgbSec;
+  backMin = 255-rgbMin;
+  backHour = 255-rgbHour;
+
+  let backwards = [backHour, backMin, backSec];
+
+  drawCircle(100,100,80,0,rgb);
+
+  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
+  rgbTime.style.color = "rgb(" + backwards  + ")";
 
   if (currentSec % 5 === 0) {
-    makeCircle(12, currentSec/5, [rgbHour, rgbMin, rgbSec]);
+    if (secs.length === 12) { ///don't crash
+    }
+    makeCircles(12, currentSec/5, rgb, 62, 15); //divisions, position, color, offset, size
+    secs.push(currentSec);
+    rgbs.push(rgb);
+  }
+
+  for (i = 0; i < secs.length; i++) {
+    makeCircles(12, secs[i]/5, rgbs[i], 62, 15);
   }
 }
 

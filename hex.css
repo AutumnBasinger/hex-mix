@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+center {
+  font-family: monospace;
+}
+
 canvas {
   margin: auto;
   display: block;
