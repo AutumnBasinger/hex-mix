@@ -8,23 +8,8 @@ canvas {
   margin: auto;
   display: block;
   border: thin solid black;
-  width: 200px;
-  height: 200px;
-}
-
-#clock {
-  margin: auto;
-  width: 240px;
-  height: 240px;
-  max-width: 100%;
-}
-
-#colorOutput {
-  margin: auto;
-  border-radius: 50%;
-  width: 240px;
-  height: 240px;
-  max-width: 100%;
+  width: 400px;
+  height: 400px;
 }
 
 .circle {

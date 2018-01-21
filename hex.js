@@ -1,27 +1,22 @@
-let colorOutput = document.getElementById('colorOutput');
-let clock = document.getElementById('clock');
+let canvas = document.getElementById('canvas');
+canvas.width = 800;
+canvas.height = 800;
+let ctx = canvas.getContext('2d');
+ctx.scale(4,4);
 
-function Circle(value){
-  this.value = value;
-  this.div = document.createElement('div');
-  this.div.className = 'circle';
-  this.div.style.backgroundColor = "rgb(" + this.value + ")";
+function getCoordinates(divisions, number) {
+  let deg = 360/divisions; //30
+  let rad = (number*deg*2*Math.PI)/360;
+  r = 90;
+  let x = r * Math.cos(rad) + 100;
+  let y = r * Math.sin(rad) + 100;
+  makeCircle(x,y,10,0,[backSec,backMin,backHour]);
 }
 
-function makeCircle(value){
-  let circle = new Circle(value);
-  clock.append(circle.div);
-}
-
-function makeCanvas(value){
-  let canvas = document.getElementById('canvas');
-  canvas.width = 400;
-  canvas.height = 400;
-  let ctx = canvas.getContext('2d');
-  ctx.scale(2,2);
+function makeCircle(x,y,radius,start,color){
   ctx.beginPath();
-  ctx.arc(100,100,100,0,2*Math.PI);
-  ctx.fillStyle = "rgb(" + value + ")"
+  ctx.arc(x,y,radius,start,2*Math.PI);
+  ctx.fillStyle = "rgb(" + color + ")"
   ctx.fill();
 }
 
@@ -42,13 +37,8 @@ function onSecond() {
   backMin = 256-rgbMin;
   backHour = 256-rgbHour;
 
-  if (currentSec % 5 === 0) {
-    makeCircle([rgbHour, rgbMin, rgbSec]);
-  }
-
-  makeCanvas([rgbHour, rgbMin, rgbSec]);
-
-  colorOutput.style.backgroundColor = "rgb(" + [rgbHour, rgbMin, rgbSec] + ")";
+  makeCircle(100,100,100,0,[rgbHour, rgbMin, rgbSec]);
+  getCoordinates(12,4);
 }
 
 onSecond();
