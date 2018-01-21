@@ -4,20 +4,27 @@ canvas.height = 800;
 let ctx = canvas.getContext('2d');
 ctx.scale(4,4);
 
-function getCoordinates(divisions, number) {
-  let deg = 360/divisions; //30
-  let rad = (number*deg*2*Math.PI)/360;
-  r = 90;
+function makeCircle(divisions, position, color) {
+  position = position-divisions/4;
+  let deg = 360/divisions;
+  let rad = (position*deg*2*Math.PI)/360;
+  r = 75;
   let x = r * Math.cos(rad) + 100;
   let y = r * Math.sin(rad) + 100;
-  makeCircle(x,y,10,0,[backSec,backMin,backHour]);
+  drawCircle(x,y,15,0,color);
 }
 
-function makeCircle(x,y,radius,start,color){
+function drawCircle(x,y,radius,start,color){
   ctx.beginPath();
   ctx.arc(x,y,radius,start,2*Math.PI);
   ctx.fillStyle = "rgb(" + color + ")"
   ctx.fill();
+}
+
+function populate(){
+  for (let i = 0; i < 12 ; i++) {
+    makeCircle(12,i,[backSec,backMin,backHour]);
+  }
 }
 
 function onSecond() {
@@ -37,8 +44,11 @@ function onSecond() {
   backMin = 256-rgbMin;
   backHour = 256-rgbHour;
 
-  makeCircle(100,100,100,0,[rgbHour, rgbMin, rgbSec]);
-  getCoordinates(12,4);
+  drawCircle(100,100,80,0,[rgbHour, rgbMin, rgbSec]);
+
+  if (currentSec % 5 === 0) {
+    makeCircle(12, currentSec/5, [rgbHour, rgbMin, rgbSec]);
+  }
 }
 
 onSecond();
