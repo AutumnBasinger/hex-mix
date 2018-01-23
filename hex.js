@@ -25,20 +25,43 @@ function drawCircle(x,y,radius,start,color){
   ctx.fill();
 }
 
+function inFront(){
+  for (i = 0; i < secs.length; i++) {
+  makeCircles(12, secs[i]/5, rgbs[i], 62, 15);
+  }
+}
+
 function onSecond() {
   let time = new Date();
   currentSec = time.getSeconds(); //current second
   currentMin = time.getMinutes(); //current minute
   currentHour = time.getHours(); //current hour
 
-  tic = 256/60; //change in RGB value per 1 cycle out of 60
+  tick = 256/60; //change in RGB value per 1 cycle out of 60
   tock = 256/24; //change in RGB value per 1 cycle out of 24
 
-  rgbSec = Math.round(tic*currentSec);
-  rgbMin = Math.round(tic*currentMin + rgbSec/60);
+  rgbSec = Math.round(tick*currentSec);
+  rgbMin = Math.round(tick*currentMin + rgbSec/60);
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
 
   let rgb = [rgbHour, rgbMin, rgbSec];
+
+  ticked = 512/60; //double cycle 8.53
+  tocked = 512/24; //double cycle 21.33
+
+  if (currentSec > 30) {
+    dbSec = Math.abs(Math.round(ticked*currentSec - 512));
+  } else {dbSec = Math.round(ticked*currentSec);}
+
+  if (currentMin > 30) {
+    dbMin = Math.abs(Math.round((ticked*currentMin - 512) + dbSec/60));
+  } else {dbMin = Math.round(ticked*currentMin + dbSec/60);}
+
+  if (currentHour > 12) {
+    dbHour = Math.abs(Math.round((tocked*currentHour - 512) + dbMin/60));
+  } else {dbHour = Math.round(tocked*currentHour + dbMin/60);}
+
+  let db = [dbHour, dbMin, dbSec];
 
   backSec = 255-rgbSec;
   backMin = 255-rgbMin;
@@ -46,24 +69,22 @@ function onSecond() {
 
   let backwards = [rgbSec, rgbMin, rgbHour];
 
-  drawCircle(100,100,80,0,rgb);
-
-  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
-  rgbTime.style.color = "rgb(" + rgb  + ")";
+  drawCircle(100,100,60,0,db); //main circle
+  rgbTime.innerHTML = dbHour + ':' + dbMin + ':' + dbSec;
+  rgbTime.style.color = "rgb(" + db  + ")";
 
   if (currentSec % 5 === 0) {
     if (secs.length === 12) {
       secs.splice(0,1);
       rgbs.splice(0,1);
     }
-    makeCircles(12, currentSec/5, rgb, 62, 15); //divisions, position, color, offset, size
+    makeCircles(12, currentSec/5, db, 62, 15); //divisions, position, color, offset, size
     secs.push(currentSec);
-    rgbs.push(rgb);
+    rgbs.push(db);
+    console.log('on5');
   }
 
-  for (i = 0; i < secs.length; i++) {
-    makeCircles(12, secs[i]/5, rgbs[i], 62, 15);
-  }
+  //inFront();
 }
 
 onSecond();
