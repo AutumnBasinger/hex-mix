@@ -1,13 +1,13 @@
 let canvas = document.getElementById('canvas');
-canvas.width = 800;
-canvas.height = 800;
+canvas.width = 1200;
+canvas.height = 1200;
 let ctx = canvas.getContext('2d');
-ctx.scale(4,4);
+ctx.scale(6,6);
 
 let rgbTime = document.getElementById('rgbTime');
 
-let secs = [];
-let rgbs = [];
+min = [];
+minColor = [];
 
 function makeCircles(divisions, position, color, offset, size) {
   position = position-divisions/4;
@@ -27,7 +27,7 @@ function drawCircle(x,y,radius,start,color){
 
 function inFront(){
   for (i = 0; i < secs.length; i++) {
-  makeCircles(12, secs[i]/5, rgbs[i], 62, 15);
+  makeCircles(60, secs[i], rgbs[i], 50, 3);
   }
 }
 
@@ -69,22 +69,22 @@ function onSecond() {
 
   let backwards = [rgbSec, rgbMin, rgbHour];
 
-  drawCircle(100,100,60,0,db); //main circle
+  drawCircle(100,100,70,0,db); //main circle
   rgbTime.innerHTML = dbHour + ':' + dbMin + ':' + dbSec;
   rgbTime.style.color = "rgb(" + db  + ")";
 
-  if (currentSec % 5 === 0) {
-    if (secs.length === 12) {
-      secs.splice(0,1);
-      rgbs.splice(0,1);
-    }
-    makeCircles(12, currentSec/5, db, 62, 15); //divisions, position, color, offset, size
-    secs.push(currentSec);
-    rgbs.push(db);
-    console.log('on5');
+  makeCircles(60, currentSec, db, 80, 5);
+  //inFront();
+
+  if (currentSec === 0) {
+    min.splice(0,1);
+    minColor.splice(0,1);
+    makeCircles(60, currentMin, db, 40, 20);
+    min.push(currentMin);
+    minColor.push(db);
   }
 
-  //inFront();
+  makeCircles(60, min[0], minColor[0], 40, 20);
 }
 
 onSecond();
