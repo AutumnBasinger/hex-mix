@@ -1,3 +1,5 @@
+let all = document.getElementById('all');
+
 let canvas = document.getElementById('canvas');
 canvas.width = 1200;
 canvas.height = 1200;
@@ -93,3 +95,36 @@ function onSecond() {
 onSecond();
 
 let timerID = setInterval(onSecond, 1000);
+
+function printAll() {
+  h = 0;
+  m = 0;
+  s = 0;
+  while (h < 24) {
+    output(h,m,s);
+    s += 1;
+    if (s === 60) {
+      m += 1;
+      s = 0;
+      if (m === 60) {
+        h += 1;
+        m = 0;
+      }
+    }
+  }
+}
+
+  function output(h,m,s) {
+    tick = 256/60;
+    tock = 256/24;
+    rgbS = Math.round(tick*s);
+    rgbM = Math.round(tick*m + rgbS/60);
+    rgbH = Math.round(tock*h + rgbM/60);
+    rgb = [rgbH,rgbM,rgbS];
+    let elem = document.createElement('div');
+    elem.className = 'circle';
+    elem.style.backgroundColor = 'rgb(' + rgb + ')';
+    all.append(elem);
+  }
+
+  printAll();

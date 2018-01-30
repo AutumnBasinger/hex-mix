@@ -16,11 +16,10 @@ canvas {
 }
 
 .circle {
-  margin: auto;
-  display: inline-block;
+  float: left;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 10.35px;
+  height: 10.35px;
 }
 
 @media screen and (max-width: 400px) {
