@@ -7,6 +7,7 @@ let ctx = canvas.getContext('2d');
 ctx.scale(6,6);
 
 let rgbTime = document.getElementById('rgbTime');
+let time = document.getElementById('time');
 
 saveColor = [];
 saveSec = [];
@@ -45,6 +46,7 @@ function onSecond() {
   rgbSec = Math.round(tick*currentSec);
   rgbMin = Math.round(tick*currentMin + rgbSec/60);
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
+  size = 100
 
   let rgb = [rgbHour, rgbMin, rgbSec];
 
@@ -72,10 +74,12 @@ function onSecond() {
 
   let backwards = [rgbSec, rgbMin, rgbHour];
 
-  rgbTime.innerHTML = dbHour + ':' + dbMin + ':' + dbSec;
-  rgbTime.style.color = "rgb(" + db  + ")";
+  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
+  rgbTime.style.color = "rgb(" + rgb  + ")";
+  realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
+  realTime.style.color = "rgb(" + rgb  + ")";
 
-  drawCircle(100,100,75,0,db); //main circle
+  drawCircle(100,100,size,0,rgb); //main circle
 
   //if (currentSec % 5 === 0) {
   //  makeCircle(12, currentSec/5, rgb, 50, 12);
@@ -101,7 +105,7 @@ function printAll() {
   m = 0;
   s = 0;
   while (h < 24) {
-    outputDB(h,m,s);
+    output(h,m,s);
     s += 1;
     if (s === 60) {
       m += 1;
@@ -146,4 +150,21 @@ function printAll() {
     all.append(elem);
   }
 
-  printAll();
+  function outputMixed(h,m,s) {
+    tick = 256/60;
+    tock = 256/24;
+    ticked = 512/60; //double cycle 8.53
+    tocked = 512/24; //double cycle 21.33
+    rgbS = Math.round(tick*s);
+    rgbM = Math.round(tick*m + rgbS/60);
+    if (h > 12) {
+      dbHour = Math.abs(Math.round((tocked*h - 512) + rgbM/60));
+    } else {dbHour = Math.round(tocked*h + rgbM/60);}
+    rgb = [dbHour,rgbM,rgbS];
+    let elem = document.createElement('div');
+    elem.className = 'circle';
+    elem.style.backgroundColor = 'rgb(' + rgb + ')';
+    all.append(elem);
+  }
+
+  //printAll();
