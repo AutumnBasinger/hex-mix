@@ -73,9 +73,9 @@ function onSecond() {
   let backwards = [rgbSec, rgbMin, rgbHour];
 
   rgbTime.innerHTML = dbHour + ':' + dbMin + ':' + dbSec;
-  rgbTime.style.color = "rgb(" + rgb  + ")";
+  rgbTime.style.color = "rgb(" + db  + ")";
 
-  drawCircle(100,100,75,0,rgb); //main circle
+  drawCircle(100,100,75,0,db); //main circle
 
   //if (currentSec % 5 === 0) {
   //  makeCircle(12, currentSec/5, rgb, 50, 12);
@@ -101,7 +101,7 @@ function printAll() {
   m = 0;
   s = 0;
   while (h < 24) {
-    output(h,m,s);
+    outputDB(h,m,s);
     s += 1;
     if (s === 60) {
       m += 1;
@@ -124,6 +124,25 @@ function printAll() {
     let elem = document.createElement('div');
     elem.className = 'circle';
     elem.style.backgroundColor = 'rgb(' + rgb + ')';
+    all.append(elem);
+  }
+
+  function outputDB(h,m,s) {
+    ticked = 512/60; //double cycle 8.53
+    tocked = 512/24; //double cycle 21.33
+    if (s > 30) {
+      dbSec = Math.abs(Math.round(ticked*s - 512));
+    } else {dbSec = Math.round(ticked*s);}
+    if (m > 30) {
+      dbMin = Math.abs(Math.round((ticked*m - 512) + dbSec/60));
+    } else {dbMin = Math.round(ticked*m + dbSec/60);}
+    if (h > 12) {
+      dbHour = Math.abs(Math.round((tocked*h - 512) + dbMin/60));
+    } else {dbHour = Math.round(tocked*h + dbMin/60);}
+    db = [dbHour, dbMin, dbSec];
+    let elem = document.createElement('div');
+    elem.className = 'circle';
+    elem.style.backgroundColor = 'rgb(' + db + ')';
     all.append(elem);
   }
 
