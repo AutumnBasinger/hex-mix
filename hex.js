@@ -5,20 +5,21 @@ let ctx = canvas.getContext('2d');
 ctx.scale(6,6);
 
 let rgbTime = document.getElementById('rgbTime');
-let time = document.getElementById('realTime');
+let realTime = document.getElementById('realTime');
 
-function drawCircle(x,y,radius,start,color){
+function drawCircle(x,y,radius,center,color){
   ctx.beginPath();
-  ctx.arc(x,y,radius,start,2*Math.PI);
+  ctx.arc(x,y,radius,center,2*Math.PI);
   ctx.fillStyle = "rgb(" + color + ")"
   ctx.fill();
 }
 
-function onSecond() {
+function main() {
   let time = new Date();
-  currentSec = time.getSeconds(); //current second
-  currentMin = time.getMinutes(); //current minute
-  currentHour = time.getHours(); //current hour
+  currentSec = time.getSeconds();
+  currentMin = time.getMinutes();
+  currentHour = time.getHours();
+  totalSec = currentSec + currentMin*60 + currentHour*60*60
 
   let tick = 256/60; //change in RGB value per 1 cycle out of 60
   let tock = 256/24; //change in RGB value per 1 cycle out of 24
@@ -28,22 +29,23 @@ function onSecond() {
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
 
   let rgb = [rgbHour, rgbMin, rgbSec];
+  let white = [255,255,255]
 
-  ticked = 512/60; //double cycle 8.53
-  tocked = 512/24; //double cycle 21.33
+  if (totalSec <= 43200){ //43200 is half the number of seconds in a day
+    size = (totalSec/432);
+  } else {
+    size = Math.abs(100 - (totalSec/432 - 100))
+  }
 
-  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
-  rgbTime.style.color = "rgb(" + rgb  + ")";
   realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
-  realTime.style.color = "rgb(" + rgb  + ")";
-
-  x = 100;
-  y = 100;
-  r = Math.round(currentMin + currentSec)
-
-  drawCircle(x,y,60,0,rgb); //main circle
+  realTime.style.color = "rgb(" + white  + ")";
+  drawCircle(100,100,100,0,white); //refresh circle, 100 r is max canvas
+  drawCircle(100,100,size,0,rgb); //main circle
+  document.body.style.backgroundColor = "rgb(" + rgb  + ")";
+  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
+  rgbTime.style.color = "rgb(" + white  + ")";
 }
 
-onSecond();
+main();
 
-let timerID = setInterval(onSecond, 1000);
+let timerID = setInterval(main, 100); //10th of a second

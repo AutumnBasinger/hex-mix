@@ -1,35 +1,32 @@
 * {
   box-sizing: border-box;
-  font-size: 40px;
-  font-family: sans-serif;
 }
 
 center {
+  font-size: 40px;
   font-family: monospace;
 }
 
 canvas {
   margin: auto;
   display: block;
-  width: 600px;
-  height: 600px;
-  border: solid black;
+  width: 500px;
+  height: 500px;
 }
 
-#all {
-  max-width: 50%;
-}
-
-.circle {
-  float: left;
-  border-radius: 50%;
-  width: 10.35px;
-  height: 10.35px;
+@media screen and (max-width: 570px) {
+  #canvas {
+    width: 350px;
+    height: 350px;
+  }
 }
 
 @media screen and (max-width: 400px) {
-  #colorOutput {
-    width: 300px;
-    height: 300px;
+  center {
+    font-size: 32px;
+  }
+  #canvas {
+    width: 220px;
+    height: 220px;
   }
 }
