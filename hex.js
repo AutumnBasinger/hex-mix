@@ -14,6 +14,29 @@ function drawCircle(x,y,radius,center,color){
   ctx.fill();
 }
 
+function positionCircle(divisions, position, color, offset, size) {
+  position = position-divisions/4;
+  let deg = 360/divisions;
+  let rad = (position*deg*2*Math.PI)/360;
+  let x = offset * Math.cos(rad) + 100;
+  let y = offset * Math.sin(rad) + 100;
+  drawCircle(x,y,size,0,color);
+}
+
+function positionLine(divisions, position, offset, color) {
+  position = position-divisions/4;
+  let deg = 360/divisions;
+  let rad = (position*deg*2*Math.PI)/360;
+  let x = offset * Math.cos(rad) + 100;
+  let y = offset * Math.sin(rad) + 100;
+  ctx.beginPath();
+  ctx.moveTo(100,100);
+  ctx.lineTo(x,y);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgb(" + color + ")";
+  ctx.stroke();
+}
+
 function main() {
   let time = new Date();
   currentSec = time.getSeconds();
@@ -41,6 +64,8 @@ function main() {
   realTime.style.color = "rgb(" + white  + ")";
   drawCircle(100,100,100,0,white); //refresh circle, 100 r is max canvas
   drawCircle(100,100,size,0,rgb); //main circle
+  positionLine(12, currentHour, size, white);
+  positionCircle(12, currentHour, rgb, size+size/4, size/4)
   document.body.style.backgroundColor = "rgb(" + rgb  + ")";
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
   rgbTime.style.color = "rgb(" + white  + ")";
