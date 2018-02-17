@@ -1,78 +1,72 @@
-//initial default inventory
-var inventory = {
-  red: [225, 0, 0],
-  green: [0, 255, 0],
-  blue: [0, 0, 255],
-  white: [255, 255, 255],
-  black: [0, 0, 0]
-};
+let realTime = document.getElementById('realTime');
+let canvas = document.getElementById('canvas');
+let rgbTime = document.getElementById('rgbTime');
 
-var viewBox = document.getElementById("viewBox"); //color output
-var messageBox = document.getElementById("messageBox"); //message output
-var viewInput = document.getElementById("viewInput"); //color input string
-var dev = document.getElementById("dev"); //debug message
-var currentColor;
+canvas.width = 1200; canvas.height = 1200;
+let ctx = canvas.getContext('2d'); ctx.scale(6,6);
 
-function viewNum(){
-  if (viewInput.value in inventory) { //color stringname
-    currentColor = inventory[viewInput.value]; //rgb array
-    viewBox.style.backgroundColor = "rgb(" + currentColor + ")";
-    viewBox.innerHTML = "String here so color shows, fix later"
-    messageBox.innerHTML = "You're looking at the color " + currentColor;
-    dev.innerHTML = "Dev: currentColor variable = " + currentColor;
+//divisions, which divison (0 is 12:00), distance from center
+function position(div,pos,ofs) {
+  pos = pos - (div/4);
+  let deg = 360/div;
+  let rad = (pos*deg*2*Math.PI)/360;
+  let x = ofs*Math.cos(rad)+100;
+  let y = ofs*Math.sin(rad)+100;
+  return [x,y];
+}
+
+function drawCircle(x,y,radius,color){
+  ctx.beginPath();
+  ctx.arc(x,y,radius,0,2*Math.PI);
+  ctx.fillStyle = "rgb(" + color + ")"
+  ctx.fill();
+}
+
+function lineFromTo(x1,y1,x2,y2,width,color) {
+  ctx.beginPath();
+  ctx.moveTo(x1,y1); //100,100 for center
+  ctx.lineTo(x2,y2);
+  ctx.lineWidth = width;
+  ctx.strokeStyle = "rgb(" + color + ")";
+  ctx.stroke();
+}
+
+function main() {
+  let time = new Date();
+  currentSec = time.getSeconds();
+  currentMin = time.getMinutes();
+  currentHour = time.getHours();
+  secsSoFar = currentSec + currentMin*60 + currentHour*60*60
+
+  let tick = 256/60; //change in RGB per 1 cycle out of 60
+  let tock = 256/24; //change in RGB per 1 cycle out of 24
+  rgbSec = Math.round(tick*currentSec);
+  rgbMin = Math.round(tick*currentMin + rgbSec/60);
+  rgbHour = Math.round(tock*currentHour + rgbMin/60);
+  let rgb = [rgbHour, rgbMin, rgbSec];
+  let white = [255,255,255];
+  let black = [0,0,0];
+
+  let secsInDay = 86400;
+  if (secsSoFar <= secsInDay/2){
+    size = (secsSoFar/432);
   } else {
-    messageBox.innerHTML = "You don't have that color yet";
+    size = Math.abs(96 - (secsSoFar/432 - 96))
   }
+
+  realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
+  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
+  document.body.style.backgroundColor = "rgb(" + rgb  + ")";
+
+  drawCircle(100,100,96,white);
+  drawCircle(100,100,size,rgb);
+
+  let inner = position(secsInDay/2,secsSoFar,size);
+  let outer = position(secsInDay/2,secsSoFar,96);
+  drawCircle(inner[0],inner[1],4,white);
+  drawCircle(inner[0],inner[1],2,black);
 }
 
-var mi1 = document.getElementById("mi1"); //string
-var mi2 = document.getElementById("mi2"); //string
+main();
 
-function mixNum(){
-  if (mi1.value in inventory && mi2.value in inventory) { //color stringnames
-    var mixNew = []
-    var mv1 = inventory[mi1.value]; //turns string to rgb array
-    var mv2 = inventory[mi2.value];
-    var n = 1; //try add then overflow
-    mixNew.push(Math.round((mv1[0]+mv2[0])/n));
-    mixNew.push(Math.round((mv1[1]+mv2[1])/n));
-    mixNew.push(Math.round((mv1[2]+mv2[2])/n));
-    currentColor = mixNew;
-    messageBox.innerHTML = "You just mixed the color: " + currentColor; //rgb array
-    viewBox.style.backgroundColor = "rgb(" + currentColor + ")";
-    viewBox.innerHTML = "String here so color shows, fix later";
-    dev.innerHTML = "Dev: currentColor variable = " + currentColor;
-  } else {
-    messageBox.innerHTML = "You don't have at least one of those colors yet"
-  }
-}
-
-var nameInput = document.getElementById("nameInput");
-var inventoryBox = document.getElementById("inventoryBox");
-
-function isCurrentColor(color){
-  return arrEquals(color, currentColor);
-}
-
-//checks if currentColor (color shown) in colors list
-function valueInInventory() {
-  return Object.values(inventory).some(isCurrentColor);
-}
-
-function saveName(){
-  if (currentColor === undefined) {
-    messageBox.innerHTML = "You need to mix a color first";
-  } else if (nameInput.value in inventory) {
-    messageBox.innerHTML = "You already have a color named " + nameInput.value + " in your inventory";
-  } else if (valueInInventory()) {
-    messageBox.innerHTML = "Do you want to change this color's name to " + nameInput.value + " ?";
-  } else {
-    inventory[nameInput.value] = currentColor;
-    messageBox.innerHTML = "You just added the color " + nameInput.value + " to your inventory!";
-    inventoryBox.innerHTML = Object.keys(inventory);
-  }
-}
-
-function arrEquals(a, b){
-  return a.length === b.length && a.every((el, i) => el === b[i]);
-}
+let timerID = setInterval(main, 100); //10th of a second
