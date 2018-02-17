@@ -7,7 +7,7 @@ let ctx = canvas.getContext('2d'); ctx.scale(6,6);
 
 //divisions, which divison (0 is 12:00), distance from center
 function position(div,pos,ofs) {
-  pos = pos-div/4;
+  pos = pos - (div/4);
   let deg = 360/div;
   let rad = (pos*deg*2*Math.PI)/360;
   let x = ofs*Math.cos(rad)+100;
@@ -22,10 +22,10 @@ function drawCircle(x,y,radius,color){
   ctx.fill();
 }
 
-function lineCenterTo(x,y,width,color) {
+function lineFromTo(x1,y1,x2,y2,width,color) {
   ctx.beginPath();
-  ctx.moveTo(100,100);
-  ctx.lineTo(x,y);
+  ctx.moveTo(x1,y1); //100,100 for center
+  ctx.lineTo(x2,y2);
   ctx.lineWidth = width;
   ctx.strokeStyle = "rgb(" + color + ")";
   ctx.stroke();
@@ -36,7 +36,7 @@ function main() {
   currentSec = time.getSeconds();
   currentMin = time.getMinutes();
   currentHour = time.getHours();
-  totalSec = currentSec + currentMin*60 + currentHour*60*60
+  secsSoFar = currentSec + currentMin*60 + currentHour*60*60
 
   let tick = 256/60; //change in RGB per 1 cycle out of 60
   let tock = 256/24; //change in RGB per 1 cycle out of 24
@@ -45,21 +45,26 @@ function main() {
   rgbHour = Math.round(tock*currentHour + rgbMin/60);
   let rgb = [rgbHour, rgbMin, rgbSec];
   let white = [255,255,255];
+  let black = [0,0,0];
 
-  if (totalSec <= 43200){ //half of 86400 seconds in a day
-    size = (totalSec/432);
+  let secsInDay = 86400;
+  if (secsSoFar <= secsInDay/2){
+    size = (secsSoFar/432);
   } else {
-    size = Math.abs(100 - (totalSec/432 - 100))
+    size = Math.abs(96 - (secsSoFar/432 - 96))
   }
 
   realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
   document.body.style.backgroundColor = "rgb(" + rgb  + ")";
 
-  drawCircle(100,100,100,white);
+  drawCircle(100,100,96,white);
   drawCircle(100,100,size,rgb);
-  let hour = position(12,currentHour,size);
-  lineCenterTo(hour[0],hour[1],1,white);
+
+  let inner = position(secsInDay/2,secsSoFar,size);
+  let outer = position(secsInDay/2,secsSoFar,96);
+  drawCircle(inner[0],inner[1],4,white);
+  drawCircle(inner[0],inner[1],2,black);
 }
 
 main();
