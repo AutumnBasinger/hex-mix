@@ -48,21 +48,23 @@ function main() {
   let black = [0,0,0];
 
   let secsInDay = 86400;
-  if (secsSoFar <= secsInDay/2){
-    size = (secsSoFar/432);
+  let maxRadius = 96
+  let factor = secsInDay/maxRadius/2
+  if (secsSoFar <= secsInDay/2){ //43200
+    size = (secsSoFar/factor);
   } else {
-    size = Math.abs(96 - (secsSoFar/432 - 96))
+    size = Math.abs(maxRadius - (secsSoFar/factor - maxRadius))
   }
 
   realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
   document.body.style.backgroundColor = "rgb(" + rgb  + ")";
 
-  drawCircle(100,100,96,white);
+  drawCircle(100,100,maxRadius,white);
   drawCircle(100,100,size,rgb);
 
   let inner = position(secsInDay/2,secsSoFar,size);
-  let outer = position(secsInDay/2,secsSoFar,96);
+  let outer = position(secsInDay/2,secsSoFar,maxRadius);
   drawCircle(inner[0],inner[1],4,white);
   drawCircle(inner[0],inner[1],2,black);
 }
