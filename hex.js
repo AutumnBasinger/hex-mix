@@ -65,8 +65,8 @@ function main() {
 
   let inner = position(secsInDay/2,secsSoFar,size);
   let outer = position(secsInDay/2,secsSoFar,maxRadius);
-  drawCircle(inner[0],inner[1],4,white);
-  drawCircle(inner[0],inner[1],2,black);
+  drawCircle(inner[0],inner[1]-4,4,white);
+  drawCircle(inner[0],inner[1]-4,2,black);
 }
 
 main();
