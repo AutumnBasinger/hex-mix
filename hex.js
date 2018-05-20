@@ -5,7 +5,7 @@ let rgbTime = document.getElementById('rgbTime');
 canvas.width = 1200; canvas.height = 1200;
 let ctx = canvas.getContext('2d'); ctx.scale(6,6);
 
-//divisions, which divison (0 is 12:00), distance from center
+//number of divisions, which divison (0 is 12:00), distance from center
 function position(div,pos,ofs) {
   pos = pos - (div/4);
   let deg = 360/div;
@@ -60,13 +60,12 @@ function main() {
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
   document.body.style.backgroundColor = "rgb(" + rgb  + ")";
 
-  drawCircle(100,100,maxRadius,white);
+  drawCircle(100,100,100,white);
   drawCircle(100,100,size,rgb);
 
-  let inner = position(secsInDay/2,secsSoFar,size);
-  let outer = position(secsInDay/2,secsSoFar,maxRadius);
-  drawCircle(inner[0],inner[1]-4,4,white);
-  drawCircle(inner[0],inner[1]-4,2,black);
+  dotOffset = size + (100-size)/2 //min 50, max 98
+  let middle = position(secsInDay/2,secsSoFar,dotOffset);
+  drawCircle(middle[0],middle[1],2,black);
 }
 
 main();
