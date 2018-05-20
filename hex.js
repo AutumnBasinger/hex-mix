@@ -50,14 +50,22 @@ function main() {
   let secsInDay = 86400;
   let maxRadius = 96
   let factor = secsInDay/maxRadius/2
+
+  if (currentMin < 10) {viewMin = '0' + currentMin;
+  } else {viewMin = currentMin;}
+
+  if (currentSec < 10) {viewSec = '0' + currentSec;
+  } else {viewSec = currentSec;}
+
   if (secsSoFar <= secsInDay/2){ //43200
     size = (secsSoFar/factor);
+    realTime.innerHTML = currentHour + ':' + viewMin + ':' + viewSec + ' AM';
   } else {
-    size = Math.abs(maxRadius - (secsSoFar/factor - maxRadius))
+    size = Math.abs(maxRadius - (secsSoFar/factor - maxRadius));
+    realTime.innerHTML = currentHour - 12 + ':' + viewMin + ':' + viewSec + ' PM';
   }
 
-  realTime.innerHTML = currentHour + ':' + currentMin + ':' + currentSec;
-  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec;
+  rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec + ' RGB'
   document.body.style.backgroundColor = "rgb(" + rgb  + ")";
 
   drawCircle(100,100,100,white);
