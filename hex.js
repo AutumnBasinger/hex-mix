@@ -71,9 +71,16 @@ function main() {
   drawCircle(100,100,100,white);
   drawCircle(100,100,size,rgb);
 
-  dotOffset = size + (100-size)/2 //min 50, max 98
-  let middle = position(secsInDay/2,secsSoFar,dotOffset);
-  drawCircle(middle[0],middle[1],2,black);
+  midOffset = size + (100-size)/2 //min 50, max 98
+  inOffset = size + 2
+  outOffset = 98
+  let hourDot = position(secsInDay/2,secsSoFar,midOffset); //43200, 0 to 86400
+  let minDot = position(60,currentMin,midOffset);
+  drawCircle(hourDot[0],hourDot[1],2,black);
+  drawCircle(100,100,0.5,black);
+  //drawCircle(minDot[0],minDot[1],2,black);
+  //drawCircle(secDot[0],secDot[1],3,black);
+
 }
 
 main();

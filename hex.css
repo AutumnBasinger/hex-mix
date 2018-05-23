@@ -2,16 +2,27 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  color: #000;
+}
+
 p {
-  margin-top: 50px;
+  margin: auto;
+  width: 530px;
+  margin-top: 20px;
   text-align: center;
   font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
 }
 
 center {
   font-size: 40px;
   font-family: 'Roboto Mono', monospace;
-
   color: black;
 }
 
@@ -23,6 +34,9 @@ canvas {
 }
 
 @media screen and (max-width: 570px) {
+  p {
+    width: 340px;
+  }
   #canvas {
     width: 350px;
     height: 350px;
@@ -30,6 +44,10 @@ canvas {
 }
 
 @media screen and (max-width: 400px) {
+  p {
+    width: 90%;
+    font-size: 14px;
+  }
   center {
     font-size: 32px;
   }
