@@ -33,6 +33,7 @@ function lineFromTo(x1,y1,x2,y2,width,color) {
 
 function main() {
   let time = new Date();
+  //let time = new Date('December 17, 2017 0:00:00');
   currentSec = time.getSeconds();
   currentMin = time.getMinutes();
   currentHour = time.getHours();
@@ -57,12 +58,14 @@ function main() {
   if (currentSec < 10) {viewSec = '0' + currentSec;
   } else {viewSec = currentSec;}
 
+  const viewHour = (currentHour === 0 || currentHour === 12) ? 12 : currentHour % 12;
+
   if (secsSoFar <= secsInDay/2){ //43200
     size = (secsSoFar/factor);
-    realTime.innerHTML = currentHour + ':' + viewMin + ':' + viewSec + ' AM';
+    realTime.innerHTML = viewHour + ':' + viewMin + ':' + viewSec + ' AM';
   } else {
     size = Math.abs(maxRadius - (secsSoFar/factor - maxRadius));
-    realTime.innerHTML = currentHour - 12 + ':' + viewMin + ':' + viewSec + ' PM';
+    realTime.innerHTML = viewHour + ':' + viewMin + ':' + viewSec + ' PM';
   }
 
   rgbTime.innerHTML = rgbHour + ':' + rgbMin + ':' + rgbSec + ' RGB'
@@ -80,7 +83,6 @@ function main() {
   drawCircle(100,100,0.5,black);
   //drawCircle(minDot[0],minDot[1],2,black);
   //drawCircle(secDot[0],secDot[1],3,black);
-
 }
 
 main();
